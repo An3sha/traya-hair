@@ -94,9 +94,9 @@ export function Timeline({ currentMonth, onMonthChange, phases }: TimelineProps)
       if (touchStartX.current === null) return;
       const deltaX = e.changedTouches[0].clientX - touchStartX.current;
       const SWIPE_THRESHOLD = 50;
-      if (deltaX < -SWIPE_THRESHOLD && currentMonth < TOTAL_MONTHS) {
+      if (deltaX > SWIPE_THRESHOLD && currentMonth < TOTAL_MONTHS) {
         onMonthChange(currentMonth + 1);
-      } else if (deltaX > SWIPE_THRESHOLD && currentMonth > 1) {
+      } else if (deltaX < -SWIPE_THRESHOLD && currentMonth > 1) {
         onMonthChange(currentMonth - 1);
       }
       touchStartX.current = null;

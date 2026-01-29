@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import type { PhaseData } from './types';
 
 interface TimelineProps {
@@ -83,10 +83,36 @@ export function Timeline({ currentMonth, onMonthChange, phases }: TimelineProps)
     [currentMonth, onMonthChange]
   );
 
+  const touchStartX = useRef<number | null>(null);
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  }, []);
+
+  const handleTouchEnd = useCallback(
+    (e: React.TouchEvent) => {
+      if (touchStartX.current === null) return;
+      const deltaX = e.changedTouches[0].clientX - touchStartX.current;
+      const SWIPE_THRESHOLD = 50;
+      if (deltaX < -SWIPE_THRESHOLD && currentMonth < TOTAL_MONTHS) {
+        onMonthChange(currentMonth + 1);
+      } else if (deltaX > SWIPE_THRESHOLD && currentMonth > 1) {
+        onMonthChange(currentMonth - 1);
+      }
+      touchStartX.current = null;
+    },
+    [currentMonth, onMonthChange]
+  );
+
   const progressPercent = ((currentMonth - 1) / (TOTAL_MONTHS - 1)) * 100;
 
   return (
-    <div className="w-full px-5 sm:px-6 py-6 sm:py-8" style={{ minHeight: '200px' }}>
+    <div
+      className="w-full px-5 sm:px-6 py-6 sm:py-8 touch-pan-y"
+      style={{ minHeight: '200px' }}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       <div className="relative z-20 flex justify-center gap-2 sm:gap-3 mb-6 sm:mb-8">
         {phaseSegments.map((segment) => {
           const isActive = currentPhase?.phaseNum === segment.phaseNum;
@@ -99,7 +125,8 @@ export function Timeline({ currentMonth, onMonthChange, phases }: TimelineProps)
               className={`
                 flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-full
                 text-xs sm:text-sm font-medium
-                transition-all duration-300 ease-out cursor-pointer
+                transition-[transform,background-color,color,box-shadow] duration-300 ease-out cursor-pointer
+                will-change-transform
                 focus:outline-none focus-visible:ring-2 focus-visible:ring-traya-primary focus-visible:ring-offset-2
                 ${
                   isActive
@@ -124,9 +151,11 @@ export function Timeline({ currentMonth, onMonthChange, phases }: TimelineProps)
       <div className="relative mt-10 mb-8 sm:mb-10">
         <div className="h-2 sm:h-3 bg-traya-sand rounded-full overflow-hidden shadow-inner border border-traya-border-light">
           <div
-            className="h-full rounded-full transition-all duration-500 ease-out shadow-md"
+            className="h-full w-full rounded-full shadow-md will-change-transform"
             style={{
-              width: `${progressPercent}%`,
+              transform: `scaleX(${progressPercent / 100})`,
+              transformOrigin: 'left',
+              transition: 'transform 400ms cubic-bezier(0.4, 0, 0.2, 1)',
               background: `linear-gradient(90deg, ${phaseSegments[0]?.color || '#1a5f4a'}, ${currentPhase?.color || '#1a5f4a'})`,
             }}
           />
@@ -148,7 +177,7 @@ export function Timeline({ currentMonth, onMonthChange, phases }: TimelineProps)
                 onKeyDown={handleKeyDown}
                 className={`
                   relative flex flex-col items-center
-                  transition-all duration-300 ease-out
+                  transition-[opacity] duration-300 ease-out
                   focus:outline-none focus-visible:ring-2 focus-visible:ring-traya-primary focus-visible:ring-offset-2
                   rounded-xl
                   ${isActive ? 'z-10' : 'z-0'}
@@ -158,31 +187,28 @@ export function Timeline({ currentMonth, onMonthChange, phases }: TimelineProps)
                 aria-current={isActive ? 'step' : undefined}
               >
                 <div
-                  className={`
-                    flex items-center justify-center rounded-full border-2 border-white
-                    transition-all duration-300 ease-out
-                    ${
-                      isActive
-                        ? 'w-10 h-10 sm:w-12 sm:h-12 shadow-lg -mt-4 sm:-mt-5'
-                        : isPast
-                        ? 'w-4 h-4 sm:w-5 sm:h-5 -mt-1 sm:-mt-1.5'
-                        : 'w-4 h-4 sm:w-5 sm:h-5 -mt-1 sm:-mt-1.5 bg-traya-sand'
-                    }
-                  `}
+                  className="flex items-center justify-center rounded-full border-2 border-white w-10 h-10 sm:w-12 sm:h-12 -mt-4 sm:-mt-5 will-change-transform"
                   style={{
-                    backgroundColor: isActive || isPast ? phase?.color : undefined,
+                    transform: isActive ? 'scale(1)' : 'scale(0.4)',
+                    backgroundColor: isActive || isPast ? phase?.color : '#f8f6f3',
+                    boxShadow: isActive ? '0 10px 15px -3px rgba(0,0,0,0.1)' : 'none',
+                    transition: 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1), background-color 300ms ease-out, box-shadow 300ms ease-out',
                   }}
                 >
-                  {isActive && (
-                    <span className="text-white font-semibold text-sm sm:text-base">
-                      {month}
-                    </span>
-                  )}
+                  <span
+                    className="text-white font-semibold text-sm sm:text-base"
+                    style={{
+                      opacity: isActive ? 1 : 0,
+                      transition: 'opacity 200ms ease-out',
+                    }}
+                  >
+                    {month}
+                  </span>
                 </div>
 
                 <div
                   className={`
-                    mt-2 sm:mt-3 text-center transition-all duration-300
+                    mt-2 sm:mt-3 text-center transition-opacity duration-300
                     ${isActive ? 'opacity-100' : 'opacity-70 hover:opacity-100'}
                   `}
                 >

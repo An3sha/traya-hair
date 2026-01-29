@@ -1,0 +1,269 @@
+{
+  "phases": {
+    "1": {
+      "name": "Internal Balance",
+      "months": [1],
+      "color": "#1a5f4a",
+      "icon": "leaf"
+    },
+    "2": {
+      "name": "Scalp Health",
+      "months": [2, 3],
+      "color": "#2d8a6e",
+      "icon": "sparkles"
+    },
+    "3": {
+      "name": "Regrowth",
+      "months": [4, 5],
+      "color": "#38a169",
+      "icon": "trending-up"
+    }
+  },
+  "months": {
+    "1": {
+      "phase": 1,
+      "phaseName": "Internal Balance",
+      "title": "Building Your Foundation",
+      "description": "Your body begins its internal healing process. The ayurvedic herbs start working on gut health, hormone balance, and stress reduction - the root causes of hair fall.",
+      "highlights": [
+        {
+          "title": "Improved Digestion",
+          "description": "Better nutrient absorption for hair follicles"
+        },
+        {
+          "title": "Better Sleep Quality",
+          "description": "Enhanced cellular repair during rest"
+        },
+        {
+          "title": "Increased Energy",
+          "description": "Reduced fatigue and stress levels"
+        },
+        {
+          "title": "Reduced Hair Fall",
+          "description": "Noticeable decrease in daily hair loss"
+        }
+      ],
+      "beforeImage": "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=400&h=300&fit=crop",
+      "afterImage": "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400&h=300&fit=crop",
+
+      "imageAlt": "Month 1 Progress",
+      "reviews": [
+        {
+          "id": "r1-1",
+          "username": "Priya M.",
+          "location": "Mumbai",
+          "rating": 5,
+          "text": "I was skeptical at first, but within 3 weeks I noticed my digestion improving significantly. My hair fall during showers reduced noticeably!",
+          "date": "2 weeks ago",
+          "verified": true
+        },
+        {
+          "id": "r1-2",
+          "username": "Rahul K.",
+          "location": "Delhi",
+          "rating": 4,
+          "text": "The internal changes were surprising. I'm sleeping better and feeling more energetic. Hair fall has definitely reduced.",
+          "date": "1 month ago",
+          "verified": true
+        }
+      ]
+    },
+    "2": {
+      "phase": 2,
+      "phaseName": "Scalp Health",
+      "title": "Healing Your Scalp",
+      "description": "Your scalp environment transforms. Dandruff reduces, oil balance improves, and inflammation decreases. This creates the ideal conditions for healthy hair growth.",
+      "highlights": [
+        {
+          "title": "Dandruff Reduction",
+          "description": "Visible decrease in flakes and itching"
+        },
+        {
+          "title": "Oil Balance",
+          "description": "Scalp no longer too oily or too dry"
+        },
+        {
+          "title": "Reduced Inflammation",
+          "description": "Less redness and scalp sensitivity"
+        },
+        {
+          "title": "Stronger Roots",
+          "description": "Hair feels anchored more firmly"
+        }
+      ],
+      "beforeImage": "https://images.unsplash.com/photo-1582095133179-bfd08e2fc6b3?w=400&h=300&fit=crop",
+      "afterImage": "https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=400&h=300&fit=crop",
+      "imageAlt": "Month 2 Progress",
+      "reviews": [
+        {
+          "id": "r2-1",
+          "username": "Anjali S.",
+          "location": "Bangalore",
+          "rating": 5,
+          "text": "My dandruff is almost completely gone! My scalp feels so much healthier. I can actually see tiny new hair sprouting.",
+          "date": "3 weeks ago",
+          "verified": true
+        },
+        {
+          "id": "r2-2",
+          "username": "Vikram P.",
+          "location": "Pune",
+          "rating": 5,
+          "text": "The scalp serum is amazing. No more itching, and my hair doesn't feel as oily by evening anymore.",
+          "date": "1 month ago",
+          "verified": true
+        }
+      ]
+    },
+    "3": {
+      "phase": 2,
+      "phaseName": "Scalp Health",
+      "title": "Follicle Activation",
+      "description": "Dormant hair follicles begin to wake up. Your scalp is now primed for growth, and the first signs of new hair become visible under close inspection.",
+      "highlights": [
+        {
+          "title": "Follicle Awakening",
+          "description": "Dormant follicles become active again"
+        },
+        {
+          "title": "Visible Baby Hair",
+          "description": "Tiny new growth along hairline"
+        },
+        {
+          "title": "Improved Texture",
+          "description": "Existing hair feels healthier"
+        },
+        {
+          "title": "Reduced Breakage",
+          "description": "Less hair fall during styling"
+        }
+      ],
+      "beforeImage": "https://images.unsplash.com/photo-1519735777090-ec97162dc266?w=400&h=300&fit=crop",
+      "afterImage": "https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=400&h=300&fit=crop",
+      "imageAlt": "Month 3 Progress",
+      "reviews": [
+        {
+          "id": "r3-1",
+          "username": "Deepak R.",
+          "location": "Chennai",
+          "rating": 5,
+          "text": "I can see baby hair along my temples! My wife noticed it first. The consistency is paying off.",
+          "date": "2 weeks ago",
+          "verified": true
+        },
+        {
+          "id": "r3-2",
+          "username": "Meera T.",
+          "location": "Hyderabad",
+          "rating": 4,
+          "text": "Month 3 and things are getting exciting. My ponytail feels slightly thicker. Staying consistent!",
+          "date": "3 weeks ago",
+          "verified": true
+        }
+      ]
+    },
+    "4": {
+      "phase": 3,
+      "phaseName": "Regrowth",
+      "title": "Visible New Growth",
+      "description": "The exciting phase begins! New hair growth becomes clearly visible. Baby hairs mature and existing hair gains strength and shine. You'll start seeing real transformation.",
+      "highlights": [
+        {
+          "title": "Clear Baby Hair",
+          "description": "New growth visible without close inspection"
+        },
+        {
+          "title": "Density Improvement",
+          "description": "Hair feels noticeably thicker"
+        },
+        {
+          "title": "Enhanced Shine",
+          "description": "Healthier, more lustrous appearance"
+        },
+        {
+          "title": "Stronger Strands",
+          "description": "Reduced breakage and split ends"
+        }
+      ],
+      "beforeImage": "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=400&h=300&fit=crop",
+      "afterImage": "https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=400&h=300&fit=crop",
+      "imageAlt": "Month 4 Progress",
+      "reviews": [
+        {
+          "id": "r4-1",
+          "username": "Arjun N.",
+          "location": "Kolkata",
+          "rating": 5,
+          "text": "Month 4 - the results are undeniable! My receding hairline has baby hair filling in. My barber even commented on it!",
+          "date": "1 week ago",
+          "verified": true
+        },
+        {
+          "id": "r4-2",
+          "username": "Sneha G.",
+          "location": "Ahmedabad",
+          "rating": 5,
+          "text": "I took photos every month and the difference is clear. My parting looks so much better now. Worth every penny!",
+          "date": "2 weeks ago",
+          "verified": true
+        }
+      ]
+    },
+    "5": {
+      "phase": 3,
+      "phaseName": "Regrowth",
+      "title": "Transformation Complete",
+      "description": "Your hair journey reaches its milestone. Significant density improvement, fuller coverage, and healthier hair overall. Continue the routine to maintain and enhance results.",
+      "highlights": [
+        {
+          "title": "Significant Density",
+          "description": "Visibly fuller, thicker hair"
+        },
+        {
+          "title": "Improved Coverage",
+          "description": "Less visible scalp through hair"
+        },
+        {
+          "title": "Complete Transformation",
+          "description": "Before vs after comparison shows clear change"
+        },
+        {
+          "title": "Sustained Health",
+          "description": "Long-term hair and scalp wellness"
+        }
+      ],
+      "beforeImage": "https://images.unsplash.com/photo-1522338140262-f46f5913618a?w=400&h=300&fit=crop",
+      "afterImage": "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400&h=300&fit=crop",
+      "imageAlt": "Month 5 Progress",
+      "reviews": [
+        {
+          "id": "r5-1",
+          "username": "Kavita J.",
+          "location": "Jaipur",
+          "rating": 5,
+          "text": "5 months in and I can't believe the transformation! Old photos shock me. My confidence is back. Thank you Traya!",
+          "date": "3 days ago",
+          "verified": true
+        },
+        {
+          "id": "r5-2",
+          "username": "Amit B.",
+          "location": "Lucknow",
+          "rating": 5,
+          "text": "Best decision I made. My hair is thicker, my hairline has improved, and I finally feel like myself again. Highly recommend!",
+          "date": "1 week ago",
+          "verified": true
+        },
+        {
+          "id": "r5-3",
+          "username": "Ritu D.",
+          "location": "Chandigarh",
+          "rating": 5,
+          "text": "From skeptic to believer. The science-backed approach really works. My dermatologist is impressed with my progress!",
+          "date": "2 weeks ago",
+          "verified": true
+        }
+      ]
+    }
+  }
+}

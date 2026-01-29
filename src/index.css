@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+/* Premium Medical Theme - Traya */
+@theme {
+  /* Primary palette - calming medical greens */
+  --color-traya-primary: #1a5f4a;
+  --color-traya-primary-dark: #154a3a;
+  --color-traya-secondary: #2d8a6e;
+  --color-traya-accent: #34d399;
+
+  /* Neutral backgrounds - warm, inviting */
+  --color-traya-cream: #fdfcfa;
+  --color-traya-sand: #f8f6f3;
+  --color-traya-warm: #f3f1ed;
+
+  /* Text colors - high readability */
+  --color-traya-text: #1f2937;
+  --color-traya-text-secondary: #4b5563;
+  --color-traya-muted: #6b7280;
+  --color-traya-subtle: #9ca3af;
+
+  /* Borders and dividers */
+  --color-traya-border: #e5e7eb;
+  --color-traya-border-light: #f3f4f6;
+
+  /* Semantic colors */
+  --color-traya-success: #059669;
+  --color-traya-warning: #d97706;
+  --color-traya-star: #fbbf24;
+
+  /* Shadows */
+  --shadow-soft: 0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 4px 16px -4px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 4px 12px -2px rgba(0, 0, 0, 0.08), 0 8px 24px -4px rgba(0, 0, 0, 0.1);
+  --shadow-elevated: 0 8px 24px -4px rgba(0, 0, 0, 0.1), 0 16px 48px -8px rgba(0, 0, 0, 0.12);
+}
+
+:root {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--color-traya-cream);
+  color: var(--color-traya-text);
+}
+
+#root {
+  width: 100%;
+}
+
+/* Premium transitions */
+* {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-traya-primary);
+  outline-offset: 2px;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection color */
+::selection {
+  background-color: var(--color-traya-primary);
+  color: white;
+}

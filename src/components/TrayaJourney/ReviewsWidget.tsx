@@ -87,7 +87,7 @@ function ReviewCard({ review }: { review: Review }) {
         <StarRating rating={review.rating} />
       </div>
 
-      <p className="text-sm text-traya-text-secondary leading-relaxed mb-3 line-clamp-3">
+      <p className="text-sm text-traya-text-secondary leading-relaxed mb-3 line-clamp-2">
         {review.text}
       </p>
 
@@ -140,7 +140,7 @@ export function ReviewsWidget({ reviews, phaseName }: ReviewsWidgetProps) {
       </div>
 
       <div className="space-y-3 sm:space-y-4">
-        {reviews.map((review) => (
+        {reviews.slice(0, 2).map((review) => (
           <ReviewCard key={review.id} review={review} />
         ))}
       </div>

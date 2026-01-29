@@ -49,36 +49,9 @@ export function ImageComparison({ monthData, month }: ImageComparisonProps) {
     [month]
   );
 
-  const handleMove = useCallback(
-    (clientX: number) => {
-      if (!containerRef.current || !isDragging) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const x = clientX - rect.left;
-      const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
-      setSliderPosition(percentage);
-    },
-    [isDragging]
-  );
-
   const handleMouseDown = useCallback(() => {
     setIsDragging(true);
   }, []);
-
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent) => {
-      handleMove(e.clientX);
-    },
-    [handleMove]
-  );
-
-  const handleTouchMove = useCallback(
-    (e: React.TouchEvent) => {
-      if (e.touches.length === 1) {
-        handleMove(e.touches[0].clientX);
-      }
-    },
-    [handleMove]
-  );
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === 'ArrowLeft') {
@@ -89,12 +62,31 @@ export function ImageComparison({ monthData, month }: ImageComparisonProps) {
   }, []);
 
   useEffect(() => {
+    if (!isDragging) return;
+
     const handleGlobalMouseUp = () => setIsDragging(false);
-    if (isDragging) {
-      window.addEventListener('mouseup', handleGlobalMouseUp);
-      window.addEventListener('touchend', handleGlobalMouseUp);
-    }
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+      setSliderPosition(percentage);
+    };
+    const handleGlobalTouchMove = (e: TouchEvent) => {
+      if (!containerRef.current || e.touches.length !== 1) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const x = e.touches[0].clientX - rect.left;
+      const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+      setSliderPosition(percentage);
+    };
+
+    window.addEventListener('mousemove', handleGlobalMouseMove);
+    window.addEventListener('touchmove', handleGlobalTouchMove);
+    window.addEventListener('mouseup', handleGlobalMouseUp);
+    window.addEventListener('touchend', handleGlobalMouseUp);
     return () => {
+      window.removeEventListener('mousemove', handleGlobalMouseMove);
+      window.removeEventListener('touchmove', handleGlobalTouchMove);
       window.removeEventListener('mouseup', handleGlobalMouseUp);
       window.removeEventListener('touchend', handleGlobalMouseUp);
     };
@@ -149,8 +141,8 @@ export function ImageComparison({ monthData, month }: ImageComparisonProps) {
         ref={containerRef}
         className="relative w-full overflow-hidden rounded-2xl bg-traya-sand border-2 border-traya-border shadow-lg"
         style={{ aspectRatio: '4 / 3' }}
-        onMouseMove={viewMode === 'slider' ? handleMouseMove : undefined}
-        onTouchMove={viewMode === 'slider' ? handleTouchMove : undefined}
+        onMouseDown={viewMode === 'slider' ? handleMouseDown : undefined}
+        onTouchStart={viewMode === 'slider' ? handleMouseDown : undefined}
       >
         {showLoading && (
           <div className="absolute inset-0 bg-traya-sand flex items-center justify-center">
@@ -193,7 +185,7 @@ export function ImageComparison({ monthData, month }: ImageComparisonProps) {
         {viewMode === 'slider' && !showLoading && (
           <>
             <div
-              className="absolute top-0 bottom-0 w-0.5 bg-white/90 z-10 transition-all duration-75"
+              className="absolute top-0 bottom-0 w-0.5 bg-white/90 z-10"
               style={{
                 left: `${sliderPosition}%`,
                 boxShadow: '0 0 8px rgba(0,0,0,0.3)',
@@ -205,7 +197,7 @@ export function ImageComparison({ monthData, month }: ImageComparisonProps) {
                 absolute top-1/2 -translate-y-1/2 -translate-x-1/2 z-20
                 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white
                 flex items-center justify-center cursor-ew-resize
-                transition-transform duration-150 ease-out
+                transition-shadow duration-150 ease-out
                 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50
                 ${isDragging ? 'scale-110 shadow-xl' : 'shadow-lg hover:scale-105'}
               `}

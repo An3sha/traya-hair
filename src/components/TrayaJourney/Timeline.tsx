@@ -121,7 +121,7 @@ export function Timeline({ currentMonth, onMonthChange, phases }: TimelineProps)
         })}
       </div>
 
-      <div className="relative mb-8 sm:mb-10">
+      <div className="relative mt-10 mb-8 sm:mb-10">
         <div className="h-2 sm:h-3 bg-traya-sand rounded-full overflow-hidden shadow-inner border border-traya-border-light">
           <div
             className="h-full rounded-full transition-all duration-500 ease-out shadow-md"
@@ -194,14 +194,17 @@ export function Timeline({ currentMonth, onMonthChange, phases }: TimelineProps)
                   >
                     Month {month}
                   </span>
-                  {isActive && (
-                    <span
-                      className="block text-[10px] sm:text-xs mt-0.5 font-medium"
-                      style={{ color: phase?.color }}
-                    >
-                      {phase?.name}
-                    </span>
-                  )}
+                  <span
+                    className={`
+                      block text-[10px] sm:text-xs mt-0.5 font-medium
+                      transition-opacity duration-300
+                      ${isActive ? 'opacity-100' : 'opacity-0'}
+                    `}
+                    style={{ color: phase?.color }}
+                    aria-hidden={!isActive}
+                  >
+                    {phase?.name || '\u00A0'}
+                  </span>
                 </div>
               </button>
             );

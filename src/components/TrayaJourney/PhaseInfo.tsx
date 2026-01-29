@@ -62,7 +62,7 @@ export function PhaseInfo({ monthData, phases }: PhaseInfoProps) {
   return (
     <div
       className="relative w-full p-5 sm:p-6 overflow-hidden bg-gradient-to-br from-traya-primary/20 via-traya-secondary/20 to-traya-accent/40"
-      style={{ minHeight: '320px' }}
+      style={{ minHeight: '420px' }}
     >
       <div className="relative z-10">
         <div className="flex items-center gap-3 sm:gap-4 mb-5 sm:mb-6">
@@ -91,10 +91,10 @@ export function PhaseInfo({ monthData, phases }: PhaseInfoProps) {
         </div>
 
         <div className="mb-6 sm:mb-8">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-traya-text mb-3 tracking-tight leading-tight">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-traya-text mb-3 tracking-tight leading-tight line-clamp-1">
             {monthData.title}
           </h2>
-          <p className="text-sm sm:text-base text-traya-text-secondary leading-relaxed">
+          <p className="text-sm sm:text-base text-traya-text-secondary leading-relaxed line-clamp-3">
             {monthData.description}
           </p>
         </div>

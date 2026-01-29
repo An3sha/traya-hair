@@ -87,33 +87,36 @@ export function Timeline({ currentMonth, onMonthChange, phases }: TimelineProps)
 
   return (
     <div className="w-full px-5 sm:px-6 py-6 sm:py-8" style={{ minHeight: '200px' }}>
-      <div className="flex justify-center gap-2 sm:gap-3 mb-6 sm:mb-8">
+      <div className="relative z-20 flex justify-center gap-2 sm:gap-3 mb-6 sm:mb-8">
         {phaseSegments.map((segment) => {
           const isActive = currentPhase?.phaseNum === segment.phaseNum;
           const PhaseIcon = phaseIcons[segment.phaseNum];
 
           return (
-            <div
+            <button
               key={segment.phaseNum}
+              onClick={() => onMonthChange(segment.endMonth)}
               className={`
                 flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-full
                 text-xs sm:text-sm font-medium
-                transition-all duration-300 ease-out
+                transition-all duration-300 ease-out cursor-pointer
+                focus:outline-none focus-visible:ring-2 focus-visible:ring-traya-primary focus-visible:ring-offset-2
                 ${
                   isActive
                     ? 'text-white shadow-lg scale-105'
-                    : 'bg-white text-traya-muted shadow-md border border-traya-border'
+                    : 'bg-white text-traya-muted shadow-md border border-traya-border hover:scale-102 hover:shadow-lg'
                 }
               `}
               style={{
                 backgroundColor: isActive ? segment.color : undefined,
               }}
               aria-current={isActive ? 'step' : undefined}
+              aria-label={`Go to Phase ${segment.phaseNum}: ${segment.name}`}
             >
               {PhaseIcon && <PhaseIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
               <span className="hidden sm:inline">Phase {segment.phaseNum}:</span>
               <span>{segment.name}</span>
-            </div>
+            </button>
           );
         })}
       </div>

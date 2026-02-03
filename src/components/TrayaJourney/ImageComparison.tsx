@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect, useMemo } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import type { MonthData } from './types';
 
 interface ImageComparisonProps {
@@ -25,41 +25,35 @@ export function ImageComparison({ monthData, month }: ImageComparisonProps) {
   });
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const allImagesLoaded = useMemo(() => {
-    return (
-      imageLoadState.month === month &&
-      imageLoadState.before &&
-      imageLoadState.after
-    );
-  }, [imageLoadState, month]);
+  const allImagesLoaded =
+    imageLoadState.month === month &&
+    imageLoadState.before &&
+    imageLoadState.after;
 
-  const handleImageLoad = useCallback(
-    (type: 'before' | 'after') => {
-      setImageLoadState((prev) => {
-        if (prev.month !== month) {
-          return {
-            month,
-            before: type === 'before',
-            after: type === 'after',
-          };
-        }
-        return { ...prev, [type]: true };
-      });
-    },
-    [month]
-  );
+  const handleImageLoad = (type: 'before' | 'after') => {
+    setImageLoadState((prev) => {
+      if (prev.month !== month) {
+        return {
+          month,
+          before: type === 'before',
+          after: type === 'after',
+        };
+      }
+      return { ...prev, [type]: true };
+    });
+  };
 
-  const handleMouseDown = useCallback(() => {
+  const handleMouseDown = () => {
     setIsDragging(true);
-  }, []);
+  };
 
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'ArrowLeft') {
       setSliderPosition((prev) => Math.max(0, prev - 5));
     } else if (e.key === 'ArrowRight') {
       setSliderPosition((prev) => Math.min(100, prev + 5));
     }
-  }, []);
+  };
 
   useEffect(() => {
     if (!isDragging) return;

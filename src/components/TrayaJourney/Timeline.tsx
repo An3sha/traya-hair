@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef } from 'react';
+import { useRef } from 'react';
 import type { PhaseData } from './types';
 
 interface TimelineProps {
@@ -42,67 +42,47 @@ const phaseIcons: Record<number, React.FC<{ className?: string }>> = {
 };
 
 export function Timeline({ currentMonth, onMonthChange, phases }: TimelineProps) {
-  const phaseSegments = useMemo(() => {
-    return Object.entries(phases).map(([phaseNum, phase]) => ({
-      phaseNum: parseInt(phaseNum),
-      name: phase.name,
-      startMonth: Math.min(...phase.months),
-      endMonth: Math.max(...phase.months),
-      color: phase.color,
-    }));
-  }, [phases]);
+  const phaseSegments = Object.entries(phases).map(([phaseNum, phase]) => ({
+    phaseNum: parseInt(phaseNum),
+    name: phase.name,
+    startMonth: Math.min(...phase.months),
+    endMonth: Math.max(...phase.months),
+    color: phase.color,
+  }));
 
-  const currentPhase = useMemo(() => {
-    return phaseSegments.find(
-      (segment) => currentMonth >= segment.startMonth && currentMonth <= segment.endMonth
-    );
-  }, [currentMonth, phaseSegments]);
-
-  const handleSliderChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      onMonthChange(parseInt(e.target.value));
-    },
-    [onMonthChange]
+  const currentPhase = phaseSegments.find(
+    (segment) => currentMonth >= segment.startMonth && currentMonth <= segment.endMonth
   );
 
-  const handleMonthClick = useCallback(
-    (month: number) => {
-      onMonthChange(month);
-    },
-    [onMonthChange]
-  );
+  const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onMonthChange(parseInt(e.target.value));
+  };
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
-      if (e.key === 'ArrowLeft' && currentMonth > 1) {
-        onMonthChange(currentMonth - 1);
-      } else if (e.key === 'ArrowRight' && currentMonth < TOTAL_MONTHS) {
-        onMonthChange(currentMonth + 1);
-      }
-    },
-    [currentMonth, onMonthChange]
-  );
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowLeft' && currentMonth > 1) {
+      onMonthChange(currentMonth - 1);
+    } else if (e.key === 'ArrowRight' && currentMonth < TOTAL_MONTHS) {
+      onMonthChange(currentMonth + 1);
+    }
+  };
 
   const touchStartX = useRef<number | null>(null);
 
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+  const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
-  }, []);
+  };
 
-  const handleTouchEnd = useCallback(
-    (e: React.TouchEvent) => {
-      if (touchStartX.current === null) return;
-      const deltaX = e.changedTouches[0].clientX - touchStartX.current;
-      const SWIPE_THRESHOLD = 50;
-      if (deltaX > SWIPE_THRESHOLD && currentMonth < TOTAL_MONTHS) {
-        onMonthChange(currentMonth + 1);
-      } else if (deltaX < -SWIPE_THRESHOLD && currentMonth > 1) {
-        onMonthChange(currentMonth - 1);
-      }
-      touchStartX.current = null;
-    },
-    [currentMonth, onMonthChange]
-  );
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartX.current;
+    const SWIPE_THRESHOLD = 50;
+    if (deltaX > SWIPE_THRESHOLD && currentMonth < TOTAL_MONTHS) {
+      onMonthChange(currentMonth + 1);
+    } else if (deltaX < -SWIPE_THRESHOLD && currentMonth > 1) {
+      onMonthChange(currentMonth - 1);
+    }
+    touchStartX.current = null;
+  };
 
   const progressPercent = ((currentMonth - 1) / (TOTAL_MONTHS - 1)) * 100;
 
@@ -170,7 +150,7 @@ export function Timeline({ currentMonth, onMonthChange, phases }: TimelineProps)
             return (
               <button
                 key={month}
-                onClick={() => handleMonthClick(month)}
+                onClick={() => onMonthChange(month)}
                 onKeyDown={handleKeyDown}
                 className={`
                   relative flex flex-col items-center

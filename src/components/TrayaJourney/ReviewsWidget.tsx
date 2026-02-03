@@ -1,6 +1,5 @@
-import { useMemo } from 'react';
 import type { Review } from './types';
-
+import { useMemo } from 'react';
 interface ReviewsWidgetProps {
   reviews: Review[];
   phaseName: string;

@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import type { MonthData, PhaseData } from './types';
 
 interface PhaseInfoProps {
@@ -53,9 +52,7 @@ const iconMap: Record<string, React.FC<IconProps>> = {
 };
 
 export function PhaseInfo({ monthData, phases }: PhaseInfoProps) {
-  const currentPhase = useMemo(() => {
-    return phases[monthData.phase.toString()];
-  }, [monthData.phase, phases]);
+  const currentPhase = phases[monthData.phase.toString()];
 
   const PhaseIcon = iconMap[currentPhase?.icon || 'leaf'];
 

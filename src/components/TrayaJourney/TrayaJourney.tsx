@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState } from 'react';
 import { Timeline } from './Timeline';
 import { PhaseInfo } from './PhaseInfo';
 import { ImageComparison } from './ImageComparison';
@@ -30,17 +30,12 @@ function StethoscopeIcon({ className }: { className?: string }) {
 export function TrayaJourney() {
   const [currentMonth, setCurrentMonth] = useState(1);
 
-  const currentMonthData: MonthData = useMemo(() => {
-    return data.months[currentMonth.toString()];
-  }, [currentMonth]);
+  const currentMonthData: MonthData = data.months[currentMonth.toString()];
+  const phases: Record<string, PhaseData> = data.phases;
 
-  const phases: Record<string, PhaseData> = useMemo(() => {
-    return data.phases;
-  }, []);
-
-  const handleMonthChange = useCallback((month: number) => {
+  const handleMonthChange = (month: number) => {
     setCurrentMonth(month);
-  }, []);
+  };
 
   return (
     <div className="min-h-screen bg-traya-cream">
